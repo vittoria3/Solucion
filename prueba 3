@@ -1,0 +1,166 @@
+import os
+
+nombre_usuario = input("Ingresa tu nombre: ")
+fecha_actual = input("Ingresa la fecha actual: ")
+color_favorito = input("Ingresa tu color favorito: ")
+
+os.system('cls') # Limpiar la pantalla
+
+def mostrar_menu():
+    print("------------------------")
+    print("--------- MENÚ ---------")
+    print("------------------------")
+    print("1. Buscar automovil por Modelo / Marca")
+    print("2. Buscar por mi Color Favorito")
+    print("3. Imprimir Certificado")
+    print("4. Buscar por patente")
+    print("5. Salir")
+    print("")
+
+def ejecutar_opcion(opcion):
+    if opcion == 1:
+        buscar_modelo(lista_autos)
+    elif opcion == 2:
+        buscar_color_favorito(lista_autos)
+    elif opcion == 3:
+        imprimir_certificado(lista_autos)
+    elif opcion == 4:
+        buscar_patente(lista_autos)
+    elif opcion == 5:
+        print("Saliendo del programa...")       
+    else:
+        print("Opcion no válida")
+
+def menu():
+    while True:
+        mostrar_menu()
+        opcion = int(input("Seleccione una opción: "))
+        ejecutar_opcion(opcion)
+        if opcion == 5:
+            break
+
+
+#************************************
+#***** 3. Imprimir Certificado ******
+#************************************
+def imprimir_certificado(lista):
+    os.system('cls') # Limpiar la pantalla
+
+    print("*** Selecciona tu auto ***")
+    print("")
+    for i, auto in enumerate(lista): # Enumera elementos de la lista
+        print(f"{i+1}. {auto}")     
+
+    print("")
+    eleccion = input("Elige un número de auto: ")
+    indice = int(eleccion) - 1
+
+    if indice >= 0 and indice < len(lista):
+        os.system('cls') # Limpiar la pantalla
+
+        auto_elegido = lista[indice]
+        print(f" {nombre_usuario} emite certificado que:\n El vehiculo {auto_elegido['marca']} {auto_elegido['modelo']} con patente {auto_elegido['patente']}\n De color {auto_elegido['color']}\n Queda registrado oficialmente a la fecha de {fecha_actual}\n")
+
+        # Para salir al menú principal             
+        while True:
+            opcion = input("Diguite 's' para salir: ")            
+            if opcion == "s":
+                os.system('cls') # Limpiar la pantalla
+                break
+            os.system('cls') # Limpiar la pantalla
+            print(f" {nombre_usuario} emite certificado que:\n El vehiculo {auto_elegido['marca']} {auto_elegido['modelo']} con patente {auto_elegido['patente']}\n De color {auto_elegido['color']}\n Queda registrado oficialmente a la fecha de {fecha_actual}\n")
+
+        return None
+    else:
+        return imprimir_certificado(lista)
+
+
+#************************************
+#****** 4. Buscar por patente *******
+#************************************ 
+def buscar_patente(lista):
+    os.system('cls') # Limpiar la pantalla
+    patente = input("Diguite la patente a buscar: ")
+    print("")
+    
+    for auto in lista:
+        if auto.get('patente') == patente:
+            print(auto)
+
+    # Para salir al menú principal
+    while True:
+        print("")
+        opcion = input("Diguite 's' para salir: ")            
+        if opcion == "s":
+            os.system('cls') # Limpiar la pantalla
+            break            
+        os.system('cls') # Limpiar la pantalla
+        print(f"Diguite la patente a buscar: {patente}\n")
+        for auto in lista:
+            if auto.get('patente') == patente:
+                print(auto)
+
+    return None
+
+
+#************************************
+#******** 2. Color Favorito *********
+#************************************ 
+def buscar_color_favorito(lista):
+    os.system('cls') # Limpiar la pantalla
+    print("Autos de tu color favorio: ")   
+    print("")
+    
+    for auto in lista:
+        #auto.get['color'] =auto.get['color'].
+        if auto.get('color').lower() == color_favorito.lower():
+            print(auto)
+
+    # Para salir al menú principal
+    while True:
+        print("")
+        opcion = input("Diguite 's' para salir: ")            
+        if opcion == "s":
+            os.system('cls') # Limpiar la pantalla
+            break            
+        os.system('cls') # Limpiar la pantalla
+        print(f"Autos de tu color favorio: \n")
+        for auto in lista:
+            if auto.get('color').lower() == color_favorito.lower():
+                print(auto)
+    return None
+
+
+#************************************
+#****** 1. Buscar por Modelo *******
+#************************************ 
+def buscar_modelo(lista):
+    os.system('cls') # Limpiar la pantalla
+    modelo_marca = input("Diguite el modelo o marca a buscar: ")
+    print("")
+    
+    for auto in lista:
+        if auto.get('modelo').lower() == modelo_marca.lower():
+            print(auto)
+        elif auto.get('marca').lower() == modelo_marca.lower():
+            print(auto)
+
+    # Para salir al menú principal
+    while True:
+        print("")
+        opcion = input("Diguite 's' para salir: ")            
+        if opcion == "s":
+            os.system('cls') # Limpiar la pantalla
+            break            
+        os.system('cls') # Limpiar la pantalla
+        print(f"Diguite el modelo o marca a buscar: {modelo_marca}\n")
+        for auto in lista:
+            if auto.get('modelo').lower() == modelo_marca.lower():
+                print(auto)
+            elif auto.get('marca').lower() == modelo_marca.lower():
+                print(auto)                
+    return None
+        
+menu()
+
+
